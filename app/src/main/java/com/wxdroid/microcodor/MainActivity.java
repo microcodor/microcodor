@@ -3,6 +3,9 @@ package com.wxdroid.microcodor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.wxdroid.microcodor.model.MsgEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -26,8 +29,12 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
-    @Subscribe
-    public void onEvent(String message) {
-        mText.setText(message);
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN) //第2步:注册一个在后台线程执行的方法,用于接收事件
+    public void onUserEvent(String event) {//参数必须是ClassEvent类型, 否则不会调用此方法
+        Toast.makeText(this,event,Toast.LENGTH_LONG).show();
+        mText.setText(event);
     }
+
 }
