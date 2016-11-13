@@ -5,15 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.wxdroid.microcodor.MainActivity;
+import com.wxdroid.microcodor.ui.MainActivity;
 import com.wxdroid.microcodor.R;
 import com.wxdroid.microcodor.model.MsgEvent;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,10 +45,10 @@ public class SplashActivity extends Activity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-
                 Intent intent = new Intent();
                 intent.setClass(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         }, 3000);
 
