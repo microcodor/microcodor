@@ -2,23 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:elevation="10dp"
-        android:src="@mipmap/ic_launcher"
-        android:tint="#000000"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="今日码农"
-        android:background="@drawable/myrect"
-        android:layout_below="@id/logo"
-        android:padding="5dp"
-        android:elevation="5dp"
-        android:layout_centerHorizontal="true"/>
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/dv_welcome"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true" />
 </RelativeLayout>
