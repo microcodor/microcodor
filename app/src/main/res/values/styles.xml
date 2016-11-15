@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@android:color/holo_blue_light</item>
+        <!-- 状态栏颜色 -->
+        <item name="colorPrimaryDark">@android:color/holo_blue_light</item>
+        <!-- 窗口的背景颜色 -->
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+</resources>
