@@ -2,4 +2,5 @@
     <string name="app_name">微码农</string>
     <string name="text_setting">设置</string>
     <string name="text_logout">注销</string>
+    <string name="main_name">导航</string>
 </resources>

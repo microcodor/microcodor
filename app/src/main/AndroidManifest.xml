@@ -33,6 +33,8 @@
         </activity>
         <activity android:name=".ui.MainActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".ui.WxdroidActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
     </application>
 
 </manifest>

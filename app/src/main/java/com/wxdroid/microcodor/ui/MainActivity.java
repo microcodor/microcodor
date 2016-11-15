@@ -1,5 +1,6 @@
 package com.wxdroid.microcodor.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,12 +21,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private TextView mText;
-    private RelativeLayout rootView;
-    private X5WebView mWebView;
+    private LinearLayout rootView;
 
-    private static String mUrl = "http://wxdroid.com";
+    private Button wxdroidBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         EventBus.getDefault().register(this);
 
-        rootView = (RelativeLayout) findViewById(R.id.activity_main);
+        rootView = (LinearLayout) findViewById(R.id.activity_main);
         mText = (TextView) findViewById(R.id.title);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -40,9 +43,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.menu_main);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mWebView = (X5WebView) findViewById(R.id.webview);
-
-        mWebView.loadUrl(mUrl);
+        wxdroidBtn = (Button) findViewById(R.id.btn_wxdroid);
+        wxdroidBtn.setOnClickListener(this);
     }
 
     @Override
@@ -83,4 +85,12 @@ public class MainActivity extends AppCompatActivity {
         mText.setText(event);
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_wxdroid:
+                startActivity(new Intent(MainActivity.this,WxdroidActivity.class));
+                break;
+        }
+    }
 }
