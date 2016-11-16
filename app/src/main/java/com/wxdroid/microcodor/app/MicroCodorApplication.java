@@ -30,7 +30,7 @@ public class MicroCodorApplication extends Application {
             @Override
             public void onCoreInitFinished() {
                 // TODO Auto-generated method stub
-
+                Log.e("app", " onCoreInitFinished");
             }
         };
         QbSdk.setTbsListener(new TbsListener() {

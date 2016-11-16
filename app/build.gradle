@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {abiFilters "armeabi", "armeabi-v7a", "x86", "mips"    }
     }
     buildTypes {
         release {
@@ -35,6 +36,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.facebook.fresco:fresco:0.14.1'
     compile 'com.facebook.fresco:animated-gif:0.14.1'
-    compile files('libs/tbs_sdk_thirdapp_v2.5.0.1031_36880.jar')
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile files('libs/tbs_sdk_thirdapp_v2.5.0.1031_36880_sharewithdownload_obfs_20161107_154437.jar')
 }
