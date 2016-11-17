@@ -18,7 +18,7 @@ public class MicroCodorApplication extends Application {
         initX5Browser();
     }
 
-    public void initX5Browser(){
+    public void initX5Browser() {
         QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
 
             @Override
@@ -36,21 +36,21 @@ public class MicroCodorApplication extends Application {
         QbSdk.setTbsListener(new TbsListener() {
             @Override
             public void onDownloadFinish(int i) {
-                Log.d("app","onDownloadFinish");
+                Log.d("app", "onDownloadFinish");
             }
 
             @Override
             public void onInstallFinish(int i) {
-                Log.d("app","onInstallFinish");
+                Log.d("app", "onInstallFinish");
             }
 
             @Override
             public void onDownloadProgress(int i) {
-                Log.d("app","onDownloadProgress:"+i);
+                Log.d("app", "onDownloadProgress:" + i);
             }
         });
 
-        QbSdk.initX5Environment(getApplicationContext(),  cb);
+        QbSdk.initX5Environment(getApplicationContext(), cb);
 
 
     }

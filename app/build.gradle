@@ -1,16 +1,30 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
     defaultConfig {
         applicationId "com.wxdroid.microcodor"
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion 14
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {abiFilters "armeabi", "armeabi-v7a", "x86", "mips"    }
+    }
+    signingConfigs {
+        debug {
+            keyAlias 'microcodor'
+            keyPassword '123456'
+            storeFile file('../app/microcodor.jks')
+            storePassword '123456'
+        }
+        release {
+            keyAlias 'microcodor'
+            keyPassword '123456'
+            storeFile file('../app/microcodor.jks')
+            storePassword '123456'
+        }
     }
     buildTypes {
         release {
@@ -30,12 +44,10 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:appcompat-v7:23.3.0'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:25.0.1'
     compile 'com.google.code.gson:gson:2.2.4'
-    compile 'com.facebook.fresco:fresco:0.14.1'
-    compile 'com.facebook.fresco:animated-gif:0.14.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile files('libs/tbs_sdk_thirdapp_v2.5.0.1031_36880_sharewithdownload_obfs_20161107_154437.jar')
+    compile 'com.android.support:design:23.3.0'
 }
