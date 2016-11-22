@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/left_drawer"
+        android:scrollbars="vertical"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|start"
+        android:choiceMode="singleChoice"
+        android:divider="@null"
+        app:layoutManager="LinearLayoutManager"
+        />
+
+</LinearLayout>

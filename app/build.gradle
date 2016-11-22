@@ -46,8 +46,11 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:23.3.0'
     testCompile 'junit:junit:4.12'
-    compile 'com.google.code.gson:gson:2.2.4'
-    compile 'org.greenrobot:eventbus:3.0.0'
     compile files('libs/tbs_sdk_thirdapp_v2.5.0.1031_36880_sharewithdownload_obfs_20161107_154437.jar')
     compile 'com.android.support:design:23.3.0'
+    // 其他依赖
+    compile 'com.facebook.fresco:fresco:0.12.0'
+    // 支持 GIF 动图，需要添加
+    compile 'com.facebook.fresco:animated-gif:0.12.0'
+    compile project(':basemodule')
 }

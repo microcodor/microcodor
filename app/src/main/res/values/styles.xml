@@ -6,7 +6,6 @@
         <!-- 状态栏颜色 -->
         <item name="colorPrimaryDark">@android:color/holo_blue_light</item>
         <!--&lt;!&ndash; 窗口的背景颜色 &ndash;&gt;-->
-        <!--<item name="android:windowBackground">@drawable/background_splash</item>-->
+        <item name="android:windowBackground">@color/color_splash_bg</item>
     </style>
-
 </resources>
