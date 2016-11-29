@@ -11,11 +11,16 @@ import com.tencent.smtt.sdk.TbsListener;
  */
 
 public class MicroCodorApplication extends Application {
+    private static MicroCodorApplication instance;
     @Override
     public void onCreate() {
         super.onCreate();
-
+        this.instance = this;
         initX5Browser();
+    }
+
+    public static MicroCodorApplication getInstance() {
+        return instance;
     }
 
     public void initX5Browser() {
