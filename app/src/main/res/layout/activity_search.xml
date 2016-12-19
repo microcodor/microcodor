@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
-</RelativeLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout"/>
+    <com.cjj.MaterialRefreshLayout
+        android:id="@+id/materialRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:overlay="true"
+        app:wave_show="true"
+        app:wave_color="@android:color/transparent"
+        app:progress_colors="@array/material_colors"
+        app:wave_height_type="higher"
+        app:isLoadMore="true">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+    </com.cjj.MaterialRefreshLayout>
+</LinearLayout>

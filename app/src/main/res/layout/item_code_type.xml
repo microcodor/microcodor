@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
+    android:background="@color/white"
+    android:gravity="center_vertical"
     android:padding="10dp">
-    <ImageView
+    <TextView
         android:id="@+id/code_head"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_menu_white_24dp"/>
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:gravity="center"
+        android:text="J"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"/>
     <TextView
         android:id="@+id/code_name"
         android:layout_width="wrap_content"

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/ic_share_white_24dp"
+        android:orderInCategory="90"
+        android:title="@string/text_share"
+        app:showAsAction="ifRoom" />
+    <item android:title="@string/text_copyurl"
+        android:id="@+id/action_copyurl"
+        android:enabled="true" />
+</menu>

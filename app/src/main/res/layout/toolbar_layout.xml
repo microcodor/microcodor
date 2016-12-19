@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="?actionBarSize"
     android:background="?attr/colorPrimary"
-    android:navigationIcon="@drawable/ic_menu_white_24dp"
-    app:navigationIcon="@drawable/ic_menu_white_24dp">
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
     <!--自定义toolbar的title 和subtitle -->
     <TextView
@@ -31,6 +31,6 @@
         android:ellipsize="end"
         android:text="title"
         android:scrollHorizontally="true"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white"
         android:layout_gravity="center" />
 </android.support.v7.widget.Toolbar>

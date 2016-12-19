@@ -1,10 +1,12 @@
 package com.wxdroid.microcodor.base;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -13,7 +15,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wxdroid.microcodor.R;
+import com.wxdroid.microcodor.app.MicroCodorApplication;
 import com.wxdroid.microcodor.ui.SearchActivity;
+import com.wxdroid.microcodor.ui.SettingActivity;
 
 /**
  * Created by jinchun on 2016/11/19.
@@ -26,13 +30,14 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     private TextView mToolbarTitle;
     private TextView mToolbarSubTitle;
     private Toolbar mToolbar;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayoutId());
         this.activity = this;
-
+        MicroCodorApplication.getActivityManager().pushActivity(this);
         mToolbar = getToolbar();
         /*
           toolbar.setLogo(R.mipmap.ic_launcher);
@@ -42,6 +47,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         mToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         mToolbarSubTitle = (TextView) findViewById(R.id.toolbar_subtitle);
         if (mToolbar != null) {
+            //mToolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp));
             //将Toolbar显示到界面
             setSupportActionBar(mToolbar);
         }
@@ -181,9 +187,41 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
                 break;
             case R.id.action_setting:
                 //testSnackbar();
+                startActivity(activity, SettingActivity.class);
+                break;
+            case R.id.action_logout:
+                if (alertDialog==null){
+                    setupDialog();
+                }
+                alertDialog.show();
                 break;
         }
         return true;
+    }
+
+    /**
+     * 退出APP dialog
+     * */
+    private void setupDialog(){
+        alertDialog = new AlertDialog.Builder(this)
+                .setMessage("确定要退出APP吗？")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        MicroCodorApplication.getActivityManager().finishAllActivity();
+                        System.exit(0);
+                    }
+                })
+                //.setIcon(R.mipmap.ic_launcher)
+                .create();
+
     }
 
     /**
@@ -201,5 +239,11 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MicroCodorApplication.getActivityManager().popActivity(this);
     }
 }

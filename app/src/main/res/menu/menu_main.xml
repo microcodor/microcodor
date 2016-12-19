@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/ic_youtube_searched_for_white_24dp"
+        android:icon="@drawable/ic_search_white_24dp"
         android:orderInCategory="90"
         android:title="搜索"
         app:showAsAction="ifRoom" />

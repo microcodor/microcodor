@@ -1,9 +1,16 @@
 package com.wxdroid.microcodor.network;
 
-import com.wxdroid.microcodor.model.WptermsBean;
+import com.wxdroid.microcodor.model.WpPostsModel;
+import com.wxdroid.microcodor.model.bean.WpPostsModelBean;
+import com.wxdroid.microcodor.model.bean.WpPostsModelListBean;
+import com.wxdroid.microcodor.model.bean.WptermsBean;
 import com.wxdroid.microcodor.network.utils.RetrofitUtils;
 
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -28,10 +35,7 @@ public class NetWorksUtils extends RetrofitUtils {
 
     private interface NetService {
 
-//        //POST请求
-//        @FormUrlEncoded
-//        @POST("bjws/app.user/login")
-//        Observable<Verification> getVerfcationCodePost(@Field("tel") String tel, @Field("password") String pass);
+
 //
 //        //POST请求
 //        @FormUrlEncoded
@@ -54,11 +58,20 @@ public class NetWorksUtils extends RetrofitUtils {
 //        Observable<MenuBean> getMainMenu();
 
         //GET请求
-        @GET("todaycodor/wpterms")
+        @GET("getwpterms")
         Observable<WptermsBean> getWpterms();
 
-        @GET("index")
-        Observable<WptermsBean> getWptermstest();
+        //GET请求
+        @GET("getsimpleposts/{termId}/{postId}/{num}")
+        Observable<WpPostsModelListBean> getSimplePosts(@Path("termId") long termId, @Path("postId") long postId, @Path("num") int num);
+
+        @GET("getwppost/{postId}")
+        Observable<WpPostsModelBean> getWpPost(@Path("postId") long postId);
+
+        //GET请求
+        @GET("searchsimpleposts/{keyword}/{index}/{num}")
+        Observable<WpPostsModelListBean> searchSimplePosts(@Path("keyword") String keyword, @Path("index") int index, @Path("num") int num);
+
 
     }
 
@@ -96,10 +109,16 @@ public class NetWorksUtils extends RetrofitUtils {
     public static void GetWpterms(Observer<WptermsBean> observer) {
         setSubscribe(service.getWpterms(), observer);
     }
-    public static void GetWptermsTest(Observer<WptermsBean> observer) {
-        setSubscribe(service.getWptermstest(), observer);
+    public static void GetSimplePosts(long termId, long postId, int num, Observer<WpPostsModelListBean> observer) {
+        setSubscribe(service.getSimplePosts(termId, postId, num), observer);
     }
-
+    //public static void GetSimplePosts(Observer<>)
+    public static void GetWpPost(long postId,Observer<WpPostsModelBean> observer) {
+        setSubscribe(service.getWpPost(postId), observer);
+    }
+    public static void SearchSimplePosts(String keyword, int index, int num, Observer<WpPostsModelListBean> observer) {
+        setSubscribe(service.searchSimplePosts(keyword, index, num), observer);
+    }
     /**
      * 插入观察者
      *

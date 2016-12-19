@@ -41,6 +41,12 @@
         <activity android:name=".ui.SearchActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.ArticleActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.SettingActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

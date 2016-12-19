@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false">
-    <include layout="@layout/drawer_content"/>
+    <include
+        android:id="@+id/content_frame"
+        layout="@layout/drawer_content"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/left_recyclerview"

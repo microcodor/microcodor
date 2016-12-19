@@ -10,15 +10,15 @@ public class BaseModel {
      * status : 0
      */
 
-    public int status;
-    public String msg;
+    private int code;
+    private String msg;
 
-    public int getStatus() {
-        return status;
+    public int getCode() {
+        return code;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getMsg() {
@@ -32,7 +32,7 @@ public class BaseModel {
     @Override
     public String toString() {
         return "BaseModel{" +
-                "status='" + status + '\'' +
+                "status='" + code + '\'' +
                 ", msg='" + msg + '\'' +
                 '}';
     }

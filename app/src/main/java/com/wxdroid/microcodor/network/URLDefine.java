@@ -8,5 +8,7 @@ package com.wxdroid.microcodor.network;
 public class URLDefine {
 
     //服务器路径
-    public final static String API_SERVER = "http://api.microcodor.com";
+    public final static String API_SERVER = "http://120.25.205.224:9090";//172.16.104.32
+    //public final static String API_SERVER = "http://192.168.78.84:9090";//
+    //public final static String API_SERVER = "http://192.168.1.4:9090";
 }

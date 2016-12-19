@@ -1,27 +1,35 @@
 package com.wxdroid.microcodor.model;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+import java.io.Serializable;
+
 /**
  * Created by jinchun on 2016/11/29.
  */
-
-public class WpTermModel {
+@DatabaseTable(tableName = "wp_terms")
+public class WpTermModel implements Serializable{
     /**
      * term_id : 1
      * name : 公众号
      * slug : wx_wechat
      * term_group : 0
      */
-
-    private String term_id;
+    @DatabaseField(id = true)
+    private long term_id;
+    @DatabaseField
     private String name;
+    @DatabaseField
     private String slug;
-    private String term_group;
+    @DatabaseField
+    private long term_group;
 
-    public String getTerm_id() {
+    public long getTerm_id() {
         return term_id;
     }
 
-    public void setTerm_id(String term_id) {
+    public void setTerm_id(long term_id) {
         this.term_id = term_id;
     }
 
@@ -41,11 +49,11 @@ public class WpTermModel {
         this.slug = slug;
     }
 
-    public String getTerm_group() {
+    public long getTerm_group() {
         return term_group;
     }
 
-    public void setTerm_group(String term_group) {
+    public void setTerm_group(long term_group) {
         this.term_group = term_group;
     }
 }

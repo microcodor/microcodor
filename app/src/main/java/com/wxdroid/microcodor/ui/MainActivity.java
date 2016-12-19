@@ -1,9 +1,12 @@
 package com.wxdroid.microcodor.ui;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
@@ -15,13 +18,20 @@ import android.widget.Toast;
 
 import com.wxdroid.basemodule.EventBusManager;
 import com.wxdroid.microcodor.R;
+import com.wxdroid.microcodor.app.MicroCodorApplication;
 import com.wxdroid.microcodor.base.BaseAdapterHelper;
 import com.wxdroid.microcodor.base.BaseAppCompatActivity;
 import com.wxdroid.microcodor.base.BaseQuickAdapter;
 import com.wxdroid.microcodor.model.WpTermModel;
-import com.wxdroid.microcodor.model.WptermsBean;
+import com.wxdroid.microcodor.model.bean.WpPostsModelBean;
+import com.wxdroid.microcodor.model.bean.WpPostsModelListBean;
+import com.wxdroid.microcodor.model.bean.WptermsBean;
+import com.wxdroid.microcodor.model.service.WpTermModelService;
 import com.wxdroid.microcodor.network.NetWorksUtils;
+import com.wxdroid.microcodor.ui.fragment.CommonFragment;
+import com.wxdroid.microcodor.util.LogUtil;
 import com.wxdroid.microcodor.widget.QuickAdapter;
+import com.wxdroid.microcodor.widget.RecycleViewDivider;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -42,6 +52,11 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
 
     List<WpTermModel> wpTermModelList = new ArrayList<>();
 
+    List<Fragment> fragmentList = new ArrayList<>();
+    FragmentTransaction fragmentTransaction;
+
+    private boolean termsIsExistDatabase = false;
+
     @Override
     protected int setLayoutId() {
         return R.layout.activity_main;
@@ -58,8 +73,8 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
 //        setSupportActionBar(toolbar);
 //        toolbar.inflateMenu(R.menu.menu_main);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        wxdroidBtn = (Button) findViewById(R.id.btn_wxdroid);
-        wxdroidBtn.setOnClickListener(this);
+//        wxdroidBtn = (Button) findViewById(R.id.btn_wxdroid);
+//        wxdroidBtn.setOnClickListener(this);
 
         setToolBarTitle(getResources().getString(R.string.app_name));
         showChouTi();
@@ -71,10 +86,12 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
     private void initLeftDrawer(){
         mDrawerList = (RecyclerView) findViewById(R.id.left_recyclerview);
         mDrawerList.setHasFixedSize(true);
+        mDrawerList.addItemDecoration(new RecycleViewDivider());
 
         mQuickAdapter = new QuickAdapter<WpTermModel>(this, R.layout.item_code_type, wpTermModelList) {
             @Override
             protected void convert(BaseAdapterHelper helper, WpTermModel item) {
+                helper.getTextView(R.id.code_head).setText(item.getName().substring(0,1).toUpperCase());
                 helper.getTextView(R.id.code_name).setText(item.getName() + "");
             }
         };
@@ -89,13 +106,22 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
 
     private void selectCodeItem(int position) {
         testSnackbar("position:" + position);
+        selectItem(position);
         drawerLayout.closeDrawer(mDrawerList);
     }
 
     @Override
     protected void setupData() {
-
         EventBusManager.getInstance().register(this);
+        wpTermModelList = WpTermModelService.queryAllWpTermModelList();
+        LogUtil.d(TAG,"wpTermModelList:"+wpTermModelList.size());
+        if (wpTermModelList!=null&wpTermModelList.size()>0){
+            termsIsExistDatabase = true;
+            initLeftDrawer();
+            selectItem(0);
+        }else {
+            termsIsExistDatabase = false;
+        }
         getAllClassifies();
     }
 
@@ -136,10 +162,10 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_wxdroid:
-                startActivity(new Intent(MainActivity.this, WxdroidActivity.class));
-
-                break;
+//            case R.id.btn_wxdroid:
+//                startActivity(new Intent(MainActivity.this, WxdroidActivity.class));
+//
+//                break;
         }
     }
 
@@ -150,9 +176,35 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         // 實作 drawer toggle 並放入 toolbar
         mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, getToolbar(), R.string.app_name, R.string.main_name);
-        mDrawerToggle.syncState();
+        //mDrawerToggle.setDrawerIndicatorEnabled(false);
+        mDrawerToggle.syncState();//该方法会自动和actionBar关联, 将开关的图片显示在了action上，如果不设置，也可以有抽屉的效果，不过是默认的图标
+        mDrawerToggle.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_menu_white_24dp));
         drawerLayout.setDrawerListener(mDrawerToggle);
     }
+    private void selectItem(int position) {
+        setToolBarTitle(wpTermModelList.get(position).getName());
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (fragmentList.size()==0) {
+            initFragments();
+        }
+        // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
+        hideFragments(fragmentTransaction);
+        for (int i = 0; i < fragmentList.size(); i++) {
+            if (i == position) {
+                fragmentTransaction.show(fragmentList.get(i));
+                break;
+            }
+        }
+        fragmentTransaction.commit();
+
+    }
+    private void hideFragments(FragmentTransaction transaction) {
+        for (Fragment fragment:fragmentList){
+            transaction.hide(fragment);
+        }
+    }
+
+
 
     /**
      * 获取所有分类
@@ -173,14 +225,45 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
             @Override
             public void onNext(WptermsBean wptermBean) {
                 //成功
-                Log.d("onNext", "" + wptermBean.getStatus() + ";" + wptermBean.getMsg());
-                if (wptermBean.getStatus() == 200) {
+                Log.d("onNext", "" + wptermBean.getCommon().getCode() + ";" + wptermBean.getCommon().getMsg());
+                Log.d("onNext", "size:" +wptermBean.getData().size());
+                if (wptermBean.getCommon().getCode() == 1) {
                     wpTermModelList = wptermBean.getData();
-                    initLeftDrawer();
-
+                    MicroCodorApplication.getInstance().getThreadPool().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            WpTermModelService.saveOrUpdateWpTermModelsList(wpTermModelList);
+                        }
+                    });
+                    if (!termsIsExistDatabase) {
+                        initLeftDrawer();
+                        selectItem(0);
+                    }
                     //mQuickAdapter.notifyDataSetChanged();
                 }
             }
         });
+    }
+
+
+
+    /**
+     * 初始化fragments
+     *
+     * */
+    private void initFragments(){
+        // 开启一个Fragment事务
+        if (wpTermModelList!=null&&wpTermModelList.size()>0){
+            for (int i=0;i<wpTermModelList.size();i++){
+                Fragment fragment = new CommonFragment();
+                Bundle bundle = new Bundle();
+                bundle.putLong("termId", wpTermModelList.get(i).getTerm_id());
+                fragment.setArguments(bundle);
+
+                fragmentList.add(fragment);
+                fragmentTransaction.add(R.id.content_frame,fragmentList.get(i));
+            }
+
+        }
     }
 }
