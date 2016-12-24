@@ -54,8 +54,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         if (mToolbarTitle != null) {
             //getTitle()的值是activity的android:lable属性值
             mToolbarTitle.setText(getTitle());
-            ActionBar ab=getSupportActionBar();
-            if (ab!=null) {
+            ActionBar ab = getSupportActionBar();
+            if (ab != null) {
                 //给左上角图标的左边加上一个返回的图标
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 ///使左上角图标是否显示
@@ -70,6 +70,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         setupData();
 
     }
+
     /**
      * this activity layout res
      * 设置layout布局,在子类重写该方法.
@@ -78,7 +79,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
      */
     protected abstract int setLayoutId();
 
-    protected  abstract void setupView();
+    protected abstract void setupView();
 
     protected abstract void setupData();
 
@@ -140,6 +141,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         });
 
     }
+
     public void showChouTi() {
         //setNavigationIcon必须在setSupportActionBar(toolbar);方法后面加入
         getToolbar().setNavigationIcon(R.drawable.ic_menu_white_24dp);
@@ -153,8 +155,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     }
 
 
-
-    public void showVisible(boolean flag){
+    public void showVisible(boolean flag) {
         getToolbar().getMenu().findItem(R.id.action_search).setVisible(flag);
         supportInvalidateOptionsMenu();
     }
@@ -171,7 +172,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     /**
      * 如果需要隐藏右侧菜单栏，只需重写此方法，不去布局menu_main即可
-     * */
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -182,7 +183,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                //setIntentClass(SearchActivity.class);
                 startActivity(activity, SearchActivity.class);
                 break;
             case R.id.action_setting:
@@ -190,7 +190,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
                 startActivity(activity, SettingActivity.class);
                 break;
             case R.id.action_logout:
-                if (alertDialog==null){
+                if (alertDialog == null) {
                     setupDialog();
                 }
                 alertDialog.show();
@@ -201,8 +201,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     /**
      * 退出APP dialog
-     * */
-    private void setupDialog(){
+     */
+    private void setupDialog() {
         alertDialog = new AlertDialog.Builder(this)
                 .setMessage("确定要退出APP吗？")
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {

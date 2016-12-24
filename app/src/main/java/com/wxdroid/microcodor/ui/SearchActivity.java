@@ -1,5 +1,6 @@
 package com.wxdroid.microcodor.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
@@ -49,6 +51,7 @@ public class SearchActivity extends BaseAppCompatActivity{
 
     private SearchView searchView;
     private String mKeyword = null;
+    private InputMethodManager inputmanger;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class SearchActivity extends BaseAppCompatActivity{
 
     @Override
     protected void setupView() {
+        inputmanger = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         showBack();
         mRefreshLayout = (MaterialRefreshLayout) findViewById(R.id.materialRefreshLayout);
 
@@ -210,6 +214,7 @@ public class SearchActivity extends BaseAppCompatActivity{
                 return false;
             }
         });
+        //处理返回键
         MenuItemCompat.setOnActionExpandListener(search, new MenuItemCompat.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
@@ -218,6 +223,10 @@ public class SearchActivity extends BaseAppCompatActivity{
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
+                //关闭软键盘
+                if (searchView != null) {
+                    searchView.clearFocus();
+                }
                 SearchActivity.this.finish();
                 return false;
             }
@@ -237,11 +246,11 @@ public class SearchActivity extends BaseAppCompatActivity{
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        LogUtil.d(TAG,"onBackPressed#####");
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        LogUtil.d(TAG,"onBackPressed#####");
+//    }
     //效验
     protected static boolean sqlValidate(String str) {
         str = str.toLowerCase();//统一转为小写
@@ -259,5 +268,11 @@ public class SearchActivity extends BaseAppCompatActivity{
             }
         }
         return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

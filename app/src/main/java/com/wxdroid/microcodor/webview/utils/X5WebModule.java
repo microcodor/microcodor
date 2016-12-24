@@ -1,9 +1,9 @@
 package com.wxdroid.microcodor.webview.utils;
 
-import android.content.Context;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import android.content.Context;
 
 public class X5WebModule {
 	
@@ -46,7 +46,7 @@ public class X5WebModule {
 	//
 	
 	public class WebPageSettings{
-		Map<String,String> settings;
+		Map <String,String> settings;
 		private static final int CAPACITY=10;
 		
 		/**
@@ -69,7 +69,7 @@ public class X5WebModule {
 		 * @param key
 		 * @param value
 		 */
-		public void putSettings(String key, String value) throws Exception {
+		public void putSettings(String key, String value) throws Exception{
 			if(settings!=null){
 				settings = new HashMap<String, String>(CAPACITY);
 			}

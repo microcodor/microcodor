@@ -1,18 +1,25 @@
 package com.wxdroid.microcodor.webview.utils;
 
+import java.util.ArrayList;
+
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
-
-public class X5PopMenu extends LinearLayout {
+public class X5PopMenu extends LinearLayout{
 	/**
 	 * 弹性便捷的弹出菜单
 	 * @param context
@@ -47,7 +54,7 @@ public class X5PopMenu extends LinearLayout {
 		return popMenu;
 	}
 	
-	public static void showInParent(ViewGroup parentView , final int posX, final int poxY){
+	public static void showInParent(ViewGroup parentView ,final int posX, final int poxY){
 		if(popMenu!=null&&parentView!=null){
 			popMenu.initView();
 			dialog =new Dialog(mContext){

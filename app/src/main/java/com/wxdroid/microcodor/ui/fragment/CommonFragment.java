@@ -124,7 +124,7 @@ public class CommonFragment extends BaseFragment{
                 helper.getTextView(R.id.author_name).setText(item.getUser().getUser_nicename());
                 helper.getTextView(R.id.post_time).setText(item.getPost_date());
                 helper.getTextView(R.id.post_title).setText(item.getPost_title());
-                helper.getTextView(R.id.read_num).setText(""+(item.getViews_count()+77));
+                helper.getTextView(R.id.read_num).setText(""+(item.getViews_count()));
                 helper.getTextView(R.id.comment_num).setText(""+item.getComment_count());
                 helper.getTextView(R.id.like_num).setText("0");
             }

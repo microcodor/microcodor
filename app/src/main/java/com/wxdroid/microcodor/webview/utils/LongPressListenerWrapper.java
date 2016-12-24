@@ -1,14 +1,19 @@
 package com.wxdroid.microcodor.webview.utils;
 
-import android.content.Context;
-import android.view.View;
-import android.view.View.OnLongClickListener;
-import android.widget.Toast;
-
+import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebView.HitTestResult;
 
-public class LongPressListenerWrapper implements OnLongClickListener {
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.view.View;
+import android.view.View.OnLongClickListener;
+import android.webkit.CookieManager;
+import android.widget.Toast;
+
+public class LongPressListenerWrapper implements OnLongClickListener{
 	
 	/**
 	 * 一个长按监听器的实例，可以在此实现针对不同长按对象 引导不同的长按处理
@@ -17,7 +22,7 @@ public class LongPressListenerWrapper implements OnLongClickListener {
 	private Context mContext;
 	private WebView webview;
 	
-	public LongPressListenerWrapper(WebView webview , Context context){
+	public LongPressListenerWrapper(WebView webview ,Context context){
 		this.webview = webview;
 		this.mContext=context;
 	}
@@ -26,7 +31,7 @@ public class LongPressListenerWrapper implements OnLongClickListener {
 	public boolean onLongClick(View v) {
 		int type = webview.getHitTestResult().getType();
 		switch(type){
-		case HitTestResult.ANCHOR_TYPE:
+		case HitTestResult.ANCHOR_TYPE:			
 		case HitTestResult.IMAGE_ANCHOR_TYPE:
 			
 			return doAnchorLongPressEvent();

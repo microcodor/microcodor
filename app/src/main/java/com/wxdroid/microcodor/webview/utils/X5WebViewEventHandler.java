@@ -1,5 +1,7 @@
 package com.wxdroid.microcodor.webview.utils;
 
+import java.util.HashMap;
+
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,9 +20,7 @@ import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.export.external.interfaces.MediaAccessPermissionsCallback;
 import com.tencent.smtt.sdk.WebViewCallbackClient;
 
-import java.util.HashMap;
-
-public class X5WebViewEventHandler extends ProxyWebViewClientExtension implements IX5WebChromeClientExtension {
+public class X5WebViewEventHandler extends ProxyWebViewClientExtension implements IX5WebChromeClientExtension{
 	
 	/**
 	 * 这个类用于实现由于X5webview适配架构导致的部分client回调不会发生，或者回调中传入的值不正确
@@ -88,7 +88,7 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension implement
 
 	@Override
 	public boolean onAddFavorite(IX5WebViewExtension arg0, String arg1,
-								 String arg2, JsResult arg3) {
+			String arg2, JsResult arg3) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -115,7 +115,7 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension implement
 
 	@Override
 	public void onHitTestResultForPluginFinished(IX5WebViewExtension arg0,
-												 HitTestResult arg1, Bundle arg2) {
+			HitTestResult arg1, Bundle arg2) {
 		// TODO Auto-generated method stub
 		arg1.getData();
 		Log.i("yuanhaizhou", "onHitTestResultForPluginFinished");
@@ -148,7 +148,7 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension implement
 
 	@Override
 	public boolean onSavePassword(String arg0, String arg1, String arg2,
-								  boolean arg3, Message arg4) {
+			boolean arg3, Message arg4) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -232,7 +232,7 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension implement
 	
 	@Override
 	public Object onMiscCallBack(String method,
-								 Bundle bundle) {
+			Bundle bundle) {
 
 		return null;
 	}
@@ -281,14 +281,14 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension implement
 
 	@Override
 	public boolean onSavePassword(ValueCallback<String> arg0, String arg1,
-								  String arg2, String arg3, String arg4, String arg5, boolean arg6) {
+			String arg2, String arg3, String arg4, String arg5, boolean arg6) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void openFileChooser(ValueCallback<Uri[]> arg0, String arg1,
-								String arg2) {
+			String arg2) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -314,8 +314,8 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension implement
 	}
 
 	@Override
-	public boolean onPermissionRequest(String arg0,
-			MediaAccessPermissionsCallback arg1) {
+	public boolean onPermissionRequest(String arg0, long arg1,
+			MediaAccessPermissionsCallback arg2) {
 		// TODO Auto-generated method stub
 		return false;
 	}

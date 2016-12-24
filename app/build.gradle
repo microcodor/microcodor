@@ -7,10 +7,10 @@ android {
         applicationId "com.wxdroid.microcodor"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 1
+        versionCode 2
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        ndk {abiFilters "armeabi", "armeabi-v7a"}
+        ndk {abiFilters "armeabi"}
     }
     signingConfigs {
         debug {
@@ -28,8 +28,24 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            // 混淆
+            minifyEnabled true
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileName = "Microcodor_${buildType.name}_v${defaultConfig.versionName}.2.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
     }
     sourceSets{
@@ -44,18 +60,17 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    //compile 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     compile 'com.android.support:appcompat-v7:23.3.0'
-    testCompile 'junit:junit:4.12'
-    compile files('libs/tbs_sdk_thirdapp_v2.5.0.1031_36880_sharewithdownload_obfs_20161107_154437.jar')
     compile 'com.android.support:design:23.3.0'
-    // 其他依赖
-    compile 'com.facebook.fresco:fresco:0.12.0'
-    // 支持 GIF 动图，需要添加
-    compile 'com.facebook.fresco:animated-gif:0.12.0'
+//    // 其他依赖
+//    compile 'com.facebook.fresco:fresco:0.12.0'
+//    // 支持 GIF 动图，需要添加
+//    compile 'com.facebook.fresco:animated-gif:0.12.0'
     compile project(':basemodule')
     compile 'com.cjj.materialrefeshlayout:library:1.3.0'
     compile files('libs/libammsdk.jar')
+    compile files('libs/tencentX5WebView.jar')
 }

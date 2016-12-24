@@ -8,7 +8,7 @@
         android:orderInCategory="90"
         android:title="搜索"
         app:showAsAction="ifRoom" />
-    <item android:title="@string/text_setting"
+    <item android:title="@string/text_about"
         android:id="@+id/action_setting"
         android:enabled="true" />
     <item

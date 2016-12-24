@@ -2,12 +2,9 @@ package com.wxdroid.microcodor.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.widget.ImageView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.wxdroid.microcodor.R;
 
 import org.greenrobot.eventbus.EventBus;
@@ -20,25 +17,24 @@ import java.util.TimerTask;
  */
 
 public class SplashActivity extends Activity {
-    private SimpleDraweeView dvWelcome;
+    private ImageView dvWelcome;
 
     final String json = "Test EventBus";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fresco.initialize(this);//放在加载布局之前
         setContentView(R.layout.activity_splash);
 
-        dvWelcome= (SimpleDraweeView) findViewById(R.id.dv_welcome);
+        dvWelcome = (ImageView) findViewById(R.id.dv_welcome);
         /**
          * 下面是主要代码：
          */
-        DraweeController draweeController = Fresco.newDraweeControllerBuilder()
-                .setAutoPlayAnimations(true)//自动播放动画
-                .setUri(Uri.parse("asset://com.wxdroid.microcodor/gif/terminal.gif"))//路径
-                .build();
-        dvWelcome.setController(draweeController);
+//        DraweeController draweeController = Fresco.newDraweeControllerBuilder()
+//                .setAutoPlayAnimations(true)//自动播放动画
+//                .setUri(Uri.parse("asset://com.wxdroid.microcodor/gif/terminal.gif"))//路径
+//                .build();
+//        dvWelcome.setController(draweeController);
 
 
         Timer timer = new Timer();

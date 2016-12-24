@@ -1,4 +1,4 @@
-package com.wxdroid.microcodor.base;
+package com.wxdroid.microcodor.model.base;
 
 /**
  * Created by jinchun on 2016/11/29.

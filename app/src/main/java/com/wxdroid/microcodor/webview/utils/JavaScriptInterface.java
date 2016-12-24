@@ -1,8 +1,8 @@
 package com.wxdroid.microcodor.webview.utils;
 
-import android.annotation.TargetApi;
-
 import java.lang.annotation.Documented;
+
+import android.annotation.TargetApi;
 
 
 @JavaScriptInterface

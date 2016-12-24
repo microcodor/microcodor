@@ -109,12 +109,26 @@ public class X5WebView extends WebView {
         }
 
         @Override
+        public boolean onShowFileChooser(WebView arg0,
+                                         ValueCallback<Uri[]> arg1, FileChooserParams arg2) {
+            // TODO Auto-generated method stub
+            Log.e("app", "onShowFileChooser");
+            return super.onShowFileChooser(arg0, arg1, arg2);
+        }
+
+        @Override
         public void openFileChooser(ValueCallback<Uri> uploadFile, String acceptType, String captureType) {
-            Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-            i.addCategory(Intent.CATEGORY_OPENABLE);
-            i.setType("*/*");
-            ((Activity) (X5WebView.this.getContext())).startActivityForResult(Intent.createChooser(i, "choose files"),
-                    X5WebView.FILE_CHOOSER);
+            Log.e("app", "openFileChooser");
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            try {
+                ((Activity) (X5WebView.this.getContext())).startActivityForResult(Intent.createChooser(intent, "choose files"),
+                        1);
+            } catch (android.content.ActivityNotFoundException ex) {
+
+            }
+
             super.openFileChooser(uploadFile, acceptType, captureType);
         }
 
@@ -208,7 +222,7 @@ public class X5WebView extends WebView {
         super(arg0, arg1);
         this.setWebViewClientExtension(new X5WebViewEventHandler(this));// 配置X5webview的事件处理
         this.setWebViewClient(client);
-        this.setWebChromeClient(chromeClient);
+        //this.setWebChromeClient(chromeClient);
         //WebStorage webStorage = WebStorage.getInstance();
         initWebViewSettings();
         this.getView().setClickable(true);
@@ -248,21 +262,21 @@ public class X5WebView extends WebView {
     @Override
     protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
         boolean ret = super.drawChild(canvas, child, drawingTime);
-        canvas.save();
-        Paint paint = new Paint();
-        paint.setColor(0x7fff0000);
-        paint.setTextSize(24.f);
-        paint.setAntiAlias(true);
-        if (getX5WebViewExtension() != null) {
-            canvas.drawText(this.getContext().getPackageName() + "-pid:" + android.os.Process.myPid(), 10, 50, paint);
-            canvas.drawText("X5  Core:" + QbSdk.getTbsVersion(this.getContext()), 10, 100, paint);
-        } else {
-            canvas.drawText(this.getContext().getPackageName() + "-pid:" + android.os.Process.myPid(), 10, 50, paint);
-            canvas.drawText("Sys Core", 10, 100, paint);
-        }
-        canvas.drawText(Build.MANUFACTURER, 10, 150, paint);
-        canvas.drawText(Build.MODEL, 10, 200, paint);
-        canvas.restore();
+//        canvas.save();
+//        Paint paint = new Paint();
+//        paint.setColor(0x7fff0000);
+//        paint.setTextSize(24.f);
+//        paint.setAntiAlias(true);
+//        if (getX5WebViewExtension() != null) {
+//            canvas.drawText(this.getContext().getPackageName() + "-pid:" + android.os.Process.myPid(), 10, 50, paint);
+//            canvas.drawText("X5  Core:" + QbSdk.getTbsVersion(this.getContext()), 10, 100, paint);
+//        } else {
+//            canvas.drawText(this.getContext().getPackageName() + "-pid:" + android.os.Process.myPid(), 10, 50, paint);
+//            canvas.drawText("Sys Core", 10, 100, paint);
+//        }
+//        canvas.drawText(Build.MANUFACTURER, 10, 150, paint);
+//        canvas.drawText(Build.MODEL, 10, 200, paint);
+//        canvas.restore();
         return ret;
     }
 

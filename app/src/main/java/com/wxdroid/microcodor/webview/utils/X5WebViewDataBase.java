@@ -1,6 +1,9 @@
 package com.wxdroid.microcodor.webview.utils;
 
 
+
+import android.content.Context;
+
 public class X5WebViewDataBase {
 
 //	static WebViewDatabase webViewDatabase;

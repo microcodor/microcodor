@@ -1,6 +1,6 @@
 package com.wxdroid.microcodor.model.bean;
 
-import com.wxdroid.microcodor.base.BaseModel;
+import com.wxdroid.microcodor.model.base.BaseModel;
 import com.wxdroid.microcodor.model.WpPostsModel;
 
 import java.util.List;

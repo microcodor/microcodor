@@ -1,8 +1,10 @@
 package com.wxdroid.microcodor.webview.utils;
 
-import android.content.Context;
-
 import java.util.Map;
+
+import com.tencent.smtt.sdk.QbSdk;
+
+import android.content.Context;
 
 public abstract class SecurityJsBridgeBundle {
 	
@@ -23,7 +25,7 @@ public abstract class SecurityJsBridgeBundle {
 
 	public abstract void onCallMethod();
 	
-	public SecurityJsBridgeBundle(String JsBlockName, String methodName) throws Exception {
+	public SecurityJsBridgeBundle(String JsBlockName, String methodName) throws Exception{
 		if(methodName == null){
 			throw new Exception("methodName can not be null!");
 		}
@@ -51,7 +53,7 @@ public abstract class SecurityJsBridgeBundle {
 		if(data==null){
 			return ;
 		}
-		String injectCode = "javascript:(function JsAddJavascriptInterface_(){ "+
+		String injectCode = "javascript:(function JsAddJavascriptInterface_(){ "+ 
 		    "if (typeof(window.jsInterface)!='undefined') {"+      
 		        "console.log('window.jsInterface_js_interface_name is exist!!');}   "+ 
 		    "else {"+ 

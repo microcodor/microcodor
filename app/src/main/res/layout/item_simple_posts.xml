@@ -14,11 +14,11 @@
         android:layout_marginRight="@dimen/item_simple_posts_item_margin"
         android:orientation="horizontal"
         android:layout_centerInParent="true">
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:id="@+id/post_cover"
             android:layout_width="73dp"
             android:layout_height="70dp"
-            fresco:placeholderImage="@mipmap/ic_launcher"
+            android:src="@mipmap/ic_launcher"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
