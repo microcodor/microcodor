@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 import com.wxdroid.microcodor.R;
 import com.wxdroid.microcodor.app.MicroCodorApplication;
 import com.wxdroid.microcodor.base.BaseAppCompatActivity;
@@ -33,6 +38,7 @@ import rx.Observer;
 
 public class ArticleActivity  extends BaseAppCompatActivity implements View.OnClickListener  {
     private X5WebView mWebView;
+    private LinearLayout comment_layout;
 
     private static String mUrl = "http://wxdroid.com";
     private WpPostsModelBean mWpPostsModelBean;
@@ -47,11 +53,39 @@ public class ArticleActivity  extends BaseAppCompatActivity implements View.OnCl
         return R.layout.activity_article;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void setupView() {
         setToolBarTitle("");
+        comment_layout = (LinearLayout) findViewById(R.id.comment_layout);
+
         mWebView = (X5WebView) findViewById(R.id.webview);
         mWebView.getSettings().setDefaultTextEncodingName("UTF-8");//设置默认为utf-8
+        mWebView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                //WebView的总高度
+                float webViewContentHeight=mWebView.getContentHeight() * mWebView.getScale();
+                //WebView的现高度
+                float webViewCurrentHeight=(mWebView.getHeight() + mWebView.getScrollY());
+                System.out.println("webViewContentHeight="+webViewContentHeight);
+                System.out.println("webViewCurrentHeight="+webViewCurrentHeight);
+                if ((webViewContentHeight-webViewCurrentHeight) == 0) {
+                    System.out.println("WebView滑动到了底端");
+                }
+            }
+        });
+        mWebView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView webView, String s) {
+                super.onPageFinished(webView, s);
+                System.out.println("onPageFinished###############");
+                TextView textView = new TextView(ArticleActivity.this);
+                textView.setText("测试VIEW");
+                comment_layout.addView(textView);
+
+            }
+        });
         showBack();
     }
 

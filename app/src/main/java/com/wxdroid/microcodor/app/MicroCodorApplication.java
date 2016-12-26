@@ -11,6 +11,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.TbsListener;
+import com.wxdroid.basemodule.GlobalInit;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -40,6 +41,7 @@ public class MicroCodorApplication extends Application {
         initCrash();
         initX5Browser();
         registWechat();
+        GlobalInit.initImageLoader(getApplicationContext());
     }
 
     public static MicroCodorApplication getInstance() {

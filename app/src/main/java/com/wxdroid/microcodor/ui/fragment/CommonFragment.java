@@ -12,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wxdroid.basemodule.utils.ToastUtils;
 import com.wxdroid.microcodor.R;
 import com.wxdroid.microcodor.base.BaseAdapterHelper;
@@ -26,10 +28,12 @@ import com.wxdroid.microcodor.ui.ArticleActivity;
 import com.wxdroid.microcodor.ui.MainActivity;
 import com.wxdroid.microcodor.ui.SplashActivity;
 import com.wxdroid.microcodor.util.LogUtil;
+import com.wxdroid.microcodor.util.StringUtil;
 import com.wxdroid.microcodor.widget.QuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import rx.Observer;
 
@@ -121,12 +125,22 @@ public class CommonFragment extends BaseFragment{
         mQuickAdapter = new QuickAdapter<WpPostsModel>(getActivity(),R.layout.item_simple_posts,wpPostsModelList) {
             @Override
             protected void convert(BaseAdapterHelper helper, WpPostsModel item) {
-                helper.getTextView(R.id.author_name).setText(item.getUser().getUser_nicename());
                 helper.getTextView(R.id.post_time).setText(item.getPost_date());
                 helper.getTextView(R.id.post_title).setText(item.getPost_title());
                 helper.getTextView(R.id.read_num).setText(""+(item.getViews_count()));
                 helper.getTextView(R.id.comment_num).setText(""+item.getComment_count());
-                helper.getTextView(R.id.like_num).setText("0");
+                if (item.getPost_content() != null) {
+                    List<String> list = StringUtil.getImgStr(item.getPost_content());
+                    if (list != null && list.size() > 0) {
+                        //ImageLoader.getInstance().displayImage(list.get(0), helper.getImageView(R.id.post_cover));
+                        Glide.with(getActivity()).load(list.get(0))
+                                .placeholder(R.mipmap.ic_launcher)
+                                .error(R.mipmap.ic_launcher)
+                                .into(helper.getImageView(R.id.post_cover));
+                    }else {
+                        helper.getImageView(R.id.post_cover).setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
+                    }
+                }
             }
         };
         mQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -178,8 +192,14 @@ public class CommonFragment extends BaseFragment{
             @Override
             public void onError(Throwable e) {
                 //异常
-                Log.e("MAIN3", e.getLocalizedMessage() + "--" + e.getMessage());
-                ToastUtils.showToast(getActivity(),""+e.getMessage());
+                if (e!=null&&e.getMessage()!=null){
+                    Log.e("MAIN3", e.getLocalizedMessage() + "--" + e.getMessage());
+                    if (e.getMessage().contains("failed to connect to")){
+                        ToastUtils.showToast(getActivity(),"服务器连接失败，请检查您的网络");
+                    }else {
+                        ToastUtils.showToast(getActivity(),""+e.getMessage());
+                    }
+                }
                 mRefreshLayout.finishRefresh();
             }
 

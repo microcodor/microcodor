@@ -28,11 +28,12 @@
             android:id="@+id/post_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="fdsafsdafdsfdsfsd发放的范德萨范德萨df放大范德萨范德萨范德萨第三方范德萨发放范德萨发送发大水发大水发大水发反反复复范德萨发的是是是发大水发的撒范德萨范德萨发生的范德萨发生大"
+            android:text=""
             android:layout_below="@id/post_title"
             android:layout_marginTop="@dimen/item_search_posts_item_content_top"
             android:textSize="@dimen/common_attach_info_text_size"
-            android:maxLines="3"/>
+            android:maxLines="3"
+            android:ellipsize="end"/>
 
         <LinearLayout
             android:id="@+id/layout_author_info"

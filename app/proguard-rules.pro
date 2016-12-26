@@ -214,7 +214,7 @@
   **[] $VALUES;
   public *;
 }
-
+-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 ### greenDAO 2
 -keepclassmembers class * extends de.greenrobot.dao.AbstractDao {

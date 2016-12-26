@@ -19,7 +19,14 @@
     <com.wxdroid.microcodor.webview.utils.X5WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"/>
+    <LinearLayout
+        android:id="@+id/comment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical">
+
+    </LinearLayout>
 
 </LinearLayout>

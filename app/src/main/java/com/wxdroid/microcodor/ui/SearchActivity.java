@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -102,7 +103,7 @@ public class SearchActivity extends BaseAppCompatActivity{
                 helper.getTextView(R.id.author_name).setText(item.getUser().getUser_nicename());
 
                 helper.getTextView(R.id.post_title).setText(""+item.getPost_title());
-                helper.getTextView(R.id.post_content).setText(""+item.getPost_content());
+                helper.getTextView(R.id.post_content).setText(StringUtil.delHTMLTag(item.getPost_content()));
             }
         };
         mQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -268,6 +269,17 @@ public class SearchActivity extends BaseAppCompatActivity{
             }
         }
         return false;
+    }
+    /**
+     * 编写过滤html标签的代码，代码:
+     */
+    public static String splitHtml(String s){
+        if(!s.equals("")||s!=null){
+            String str=s.replaceAll("<[.[^<]]*>","");
+            return str;
+        }else{
+            return s;
+        }
     }
 
     @Override
